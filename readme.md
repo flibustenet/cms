@@ -46,5 +46,8 @@ création du fichier `main.go`
 - coverage
 - build
 
+## 9. middleware de log et recovery
 
+- simple middleware
+- voir ensuite https://www.gorillatoolkit.org/
 

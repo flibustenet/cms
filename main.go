@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/flibustenet/cms/app"
@@ -21,7 +20,8 @@ func main() {
 	}
 	fmt.Printf("Conf = %+v\n", conf)
 
-	http.HandleFunc("/", hdl.Handler)
-	fmt.Printf("Listen %s\n", conf.Listen)
-	panic(http.ListenAndServe(conf.Listen, nil))
+	err = hdl.RunServer(conf)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

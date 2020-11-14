@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"path/filepath"
 	"strings"
@@ -15,7 +14,6 @@ import (
 
 // Handler envoi la page demandée par http.Request vers http.ResponseWriter
 func Handler(w http.ResponseWriter, r *http.Request) {
-	log.Println(r.Method, r.URL.Path) // log qui pourrait être en middleware
 	nom := r.URL.Path[1:len(r.URL.Path)]
 	if nom == "" {
 		nom = "index.html"

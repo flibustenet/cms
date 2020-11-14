@@ -11,6 +11,7 @@ import (
 
 var confTest = `
 {
+	"listen":":8888",
     "pages":[
         {"Menu":"Accueil", "Nom":"index.html"},
         {"Menu":"Contact", "Nom":"contact.html"},
