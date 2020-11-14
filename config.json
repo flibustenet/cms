@@ -1,6 +1,7 @@
 {
     "Listen":"localhost:8888",
     "Root":"",
+    "Slow":8,
     "Pages":[
         {"Menu":"Accueil", "Nom":"index.html"},
         {"Menu":"Contact", "Nom":"contact.html"},

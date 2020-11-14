@@ -51,3 +51,10 @@ création du fichier `main.go`
 - simple middleware
 - voir ensuite https://www.gorillatoolkit.org/
 
+## 10. get des pages parallèle
+
+- **goroutines**
+- **sync.Waitgroup**
+- **channel**
+
+

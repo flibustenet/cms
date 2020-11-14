@@ -17,6 +17,7 @@ type ConfJSON struct {
 	Pages  []*Page // Majuscules pour export json et autre éventuel
 	Listen string  // Ecoute du serveur
 	Root   string  // chemin où se trouve ./templates
+	Slow   int     // ralentissement
 }
 
 // confUtil champs utilitaires

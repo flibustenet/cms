@@ -5,6 +5,8 @@ import (
 	"math/rand"
 	"net/http"
 	"time"
+
+	"github.com/flibustenet/cms/app"
 )
 
 func init() {
@@ -15,7 +17,13 @@ func init() {
 // voir par la suite https://www.gorillatoolkit.org/
 func Middle(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("%s %s", r.Method, r.URL.Path)
+		wait := 0
+		if app.CONF.Slow > 0 {
+			wait = rand.Intn(app.CONF.Slow)
+		}
+
+		log.Printf("%s %s %ds", r.Method, r.URL.Path, wait)
+		time.Sleep(time.Duration(wait) * time.Second)
 		defer func() {
 			// nécessiterait un buffer sur http.ResponseWriter...
 			if rec := recover(); rec != nil {
