@@ -41,5 +41,10 @@ création du fichier `main.go`
 - Static assets
 - Rattrapage erreur de rendu
 
+## 8. coverage, build pour utilisation indépendante
+
+- coverage
+- build
+
 
 

@@ -59,9 +59,11 @@ func ReadConf(file io.Reader) (*Conf, error) {
 	}
 
 	// compilation des templates
-	// ils se trouvent dans ../templates par rapport à ici
-	_, b, _, _ := runtime.Caller(0)
-	conf.Root = filepath.Join(path.Dir(b), "..", "templates")
+	if conf.Root == "" {
+		// ils se trouvent dans ../templates par rapport à ici
+		_, b, _, _ := runtime.Caller(0)
+		conf.Root = filepath.Join(path.Dir(b), "..", "templates")
+	}
 	pathTemplate := filepath.Join(conf.Root, "*.html")
 
 	t, err := template.New("").Funcs(fmap).ParseGlob(pathTemplate)
