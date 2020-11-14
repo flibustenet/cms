@@ -1,6 +1,6 @@
 {{template "entete.html" .Conf }}
 
-<h1>Bienvenue</h1>
+{{.Conf.GetArticle "article.md" | MD}}
 
 {{template "pied.html" .Conf}}
 

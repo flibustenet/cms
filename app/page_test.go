@@ -20,7 +20,7 @@ func TestPageRender(t *testing.T) {
 	if !strings.Contains(res, "<!doctype html>") {
 		t.Errorf("Ne contient pas doctype : %s", res)
 	}
-	if !strings.Contains(res, "Bienvenue") {
-		t.Errorf("Ne contient pas Bienvenue : %s", res)
+	if !strings.Contains(res, "<strong>bienvenus</strong>") {
+		t.Errorf("Ne contient pas <strong>bienvenus</strong> : %s", res)
 	}
 }

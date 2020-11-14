@@ -3,12 +3,12 @@ package app
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io"
 	"io/ioutil"
 	"path"
 	"path/filepath"
 	"runtime"
-	"text/template"
 )
 
 // ConfJSON contient la configuration du site
@@ -16,6 +16,7 @@ import (
 type ConfJSON struct {
 	Pages  []*Page // Majuscules pour export json et autre éventuel
 	Listen string  // Ecoute du serveur
+	Root   string  // chemin où se trouve ./templates
 }
 
 // confUtil champs utilitaires
@@ -60,9 +61,10 @@ func ReadConf(file io.Reader) (*Conf, error) {
 	// compilation des templates
 	// ils se trouvent dans ../templates par rapport à ici
 	_, b, _, _ := runtime.Caller(0)
-	ici := path.Join(path.Dir(b))
-	pathTemplate := filepath.Join(ici, "..", "templates", "*.html")
-	t, err := template.ParseGlob(pathTemplate)
+	conf.Root = filepath.Join(path.Dir(b), "..", "templates")
+	pathTemplate := filepath.Join(conf.Root, "*.html")
+
+	t, err := template.New("").Funcs(fmap).ParseGlob(pathTemplate)
 	if err != nil {
 		return nil, fmt.Errorf("parsing templates %s : %v", pathTemplate, err)
 	}

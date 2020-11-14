@@ -30,3 +30,8 @@ création du fichier `main.go`
 
 - Custom error **`errors.Is`**
 
+## 6. Articles, Markdown (modules v2)
+
+- Ajout d'articles **`template. FuncMap`**
+- Import markdown https://github.com/russross/blackfriday/v2 **modules v2** **`go.sum`**
+

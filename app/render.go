@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"path/filepath"
 )
 
 // ErrNotFound est définie pour identifier un 404
@@ -22,4 +24,14 @@ func (c *Conf) RenderPage(w io.Writer, nom string) error {
 		return fmt.Errorf("Rendu de la page %s : %v", nom, err)
 	}
 	return nil
+}
+
+// GetArticle renvoi le contenu d'un article trouvé sur disque
+func (c *Conf) GetArticle(name string) string {
+	path := filepath.Join(c.Root, name)
+	data, err := ioutil.ReadFile(path)
+	if err != nil {
+		return err.Error()
+	}
+	return string(data)
 }
