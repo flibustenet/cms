@@ -20,4 +20,9 @@ création du fichier `main.go`
 - interface **`io.Writer`**
 - **`bytes.Buffer`** **`strings`**
 
+## 4. Serveur HTTP et handler
+
+- Rendu des pages sur un **serveur HTTP**
+- **`DefaultServeMux http.ListenAndServe`**
+- **`map`**
 

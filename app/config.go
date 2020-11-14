@@ -14,12 +14,14 @@ import (
 // ConfJSON contient la configuration du site
 // majuscule pour export éventuel
 type ConfJSON struct {
-	Pages []*Page // Majuscules pour export json et autre éventuel
+	Pages  []*Page // Majuscules pour export json et autre éventuel
+	Listen string  // Ecoute du serveur
 }
 
 // confUtil champs utilitaires
 type confUtil struct {
-	tmpl *template.Template
+	tmpl     *template.Template
+	mapPages map[string]*Page // contient les pages par leur nom
 }
 
 // Conf est composé de ConfJson et des champs utilitaires de confUtil
@@ -27,6 +29,9 @@ type Conf struct {
 	ConfJSON
 	confUtil
 }
+
+// CONF contient la configuration du site accessible globalement
+var CONF *Conf
 
 // ReadConf lit la configuration à partir d'un io.Reader
 // L'interface permet d'utiliser n'importe quel objet
@@ -46,6 +51,12 @@ func ReadConf(file io.Reader) (*Conf, error) {
 		return nil, fmt.Errorf("unmarshal conf : %v", err)
 	}
 
+	// indexation des pages
+	conf.mapPages = map[string]*Page{}
+	for _, page := range conf.Pages {
+		conf.mapPages[page.Nom] = page
+	}
+
 	// compilation des templates
 	// ils se trouvent dans ../templates par rapport à ici
 	_, b, _, _ := runtime.Caller(0)
@@ -56,6 +67,8 @@ func ReadConf(file io.Reader) (*Conf, error) {
 		return nil, fmt.Errorf("parsing templates %s : %v", pathTemplate, err)
 	}
 	conf.tmpl = t
+
+	CONF = conf
 
 	return conf, nil
 }
