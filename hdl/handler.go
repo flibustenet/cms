@@ -1,6 +1,7 @@
 package hdl
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -14,6 +15,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		nom = "index.html"
 	}
 	err := app.CONF.RenderPage(w, nom)
+	if errors.Is(err, app.ErrNotFound) {
+		http.Error(w, err.Error(), 404)
+		return
+	}
+
 	if err != nil {
 		http.Error(w, fmt.Sprintf("handler pour page %s : %v", nom, err), 500)
 	}

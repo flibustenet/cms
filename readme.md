@@ -26,3 +26,7 @@ création du fichier `main.go`
 - **`DefaultServeMux http.ListenAndServe`**
 - **`map`**
 
+## 5. Rattrapage erreur 404
+
+- Custom error **`errors.Is`**
+

@@ -24,6 +24,8 @@ func readConfTest() (*Conf, error) {
 	return conf, nil
 }
 
+var ReadConfTest = readConfTest
+
 func TestConfig(t *testing.T) {
 	conf, err := readConfTest()
 	if err != nil {
