@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 )
@@ -15,8 +16,16 @@ var confTest = `
 }
 `
 
-func TestConfig(t *testing.T) {
+func readConfTest() (*Conf, error) {
 	conf, err := ReadConf(strings.NewReader(confTest))
+	if err != nil {
+		return nil, fmt.Errorf("lecture conf test : %v", err)
+	}
+	return conf, nil
+}
+
+func TestConfig(t *testing.T) {
+	conf, err := readConfTest()
 	if err != nil {
 		t.Fatalf("lecture conf test : %v", err)
 	}

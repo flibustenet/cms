@@ -18,4 +18,9 @@ func main() {
 		log.Fatalf("Impossible de lire la config : %v", err)
 	}
 	fmt.Printf("Conf = %+v\n", conf)
+
+	err = conf.Pages[0].Render(conf, os.Stdout)
+	if err != nil {
+		log.Fatalf("rendu : %v", err)
+	}
 }
