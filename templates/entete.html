@@ -2,7 +2,16 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Titre</title>
+  <title>{{.Page.Menu}}</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
+  <nav class="nav">
+    <ul>
+        {{$curPage := .Page.Nom}}
+        {{range .Conf.Pages}}
+        <li><a href="/{{.Nom}}"><span {{if eq $curPage .Nom}}style="font-weight:bold"{{end}}>{{.Menu}}</a></li>
+        {{end}}
+    </ul>
+  </nav>

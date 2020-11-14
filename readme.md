@@ -35,3 +35,11 @@ création du fichier `main.go`
 - Ajout d'articles **`template. FuncMap`**
 - Import markdown https://github.com/russross/blackfriday/v2 **modules v2** **`go.sum`**
 
+## 7. Menus, Static, 500 sur Erreur de rendu
+
+- Ajout menus
+- Static assets
+- Rattrapage erreur de rendu
+
+
+

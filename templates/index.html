@@ -1,6 +1,12 @@
-{{template "entete.html" .Conf }}
+{{template "entete.html" . }}
 
 {{.Conf.GetArticle "article.md" | MD}}
 
+<div class="deuxcols">
+{{.Conf.GetArticle "col1.md" |MD}}
+{{.Conf.GetArticle "col2.md" |MD}}
+</div>
+
 {{template "pied.html" .Conf}}
+
 

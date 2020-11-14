@@ -50,3 +50,23 @@ func TestHandler(t *testing.T) {
 	}
 
 }
+
+func TestHandlerStatic(t *testing.T) {
+	_, err := readConfTest()
+	if err != nil {
+		t.Errorf("lecture conf test sur test config : %v", err)
+	}
+	r := httptest.NewRequest("GET", "/static/style.css", nil)
+	w := httptest.NewRecorder()
+	Handler(w, r)
+	if w.Code != 200 {
+		t.Errorf("GET / status=%d pour /static/style.css : %s", w.Code, w.Body)
+	}
+
+	r = httptest.NewRequest("GET", "/static/xyz", nil)
+	w = httptest.NewRecorder()
+	Handler(w, r)
+	if w.Code != 404 {
+		t.Errorf("GET / status=%d pour page static inexistante", w.Code)
+	}
+}
