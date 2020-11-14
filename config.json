@@ -1,0 +1,7 @@
+{
+    "Pages":[
+        {"Menu":"Accueil", "Nom":"index.html"},
+        {"Menu":"Contact", "Nom":"contact.html"},
+        {"Menu":"Plan","Nom":"plan.html"}
+    ]
+}
