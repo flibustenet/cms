@@ -57,4 +57,7 @@ création du fichier `main.go`
 - **sync.Waitgroup**
 - **channel**
 
+## 11. avec select et tick
+
+- **`select` et `tick`
 

@@ -22,6 +22,7 @@ func main() {
 	}
 	avecWaitGroup(conf)
 	avecChan(conf)
+	avecChanSelect(conf)
 }
 
 // Get des pages en goroutine
@@ -94,6 +95,47 @@ func avecChan(conf *app.Conf) error {
 		log.Printf("Reçoit %s en %s", msg.url, time.Since(msg.start))
 		if msg.err != nil {
 			return msg.err
+		}
+	}
+	return nil
+}
+
+func avecChanSelect(conf *app.Conf) error {
+	log.Println("--- Avec Chan et select")
+	msgCh := make(chan *Msg)
+
+	for _, p := range conf.Pages {
+		url := "http://" + conf.Listen + "/" + p.Nom
+		log.Printf("get %s", url)
+		go func(url string) {
+			now := time.Now()
+			resp, err := http.Get(url)
+			if err != nil {
+				msgCh <- &Msg{url, err, now}
+				return
+			}
+			defer resp.Body.Close()
+			if resp.StatusCode != 200 {
+				msgCh <- &Msg{url, fmt.Errorf("Status %d", resp.StatusCode), now}
+				return
+			}
+			msgCh <- &Msg{url, nil, now}
+		}(url)
+	}
+
+	tick := time.Tick(1 * time.Second)
+	nb := 0
+	for nb < len(conf.Pages) {
+		select {
+		case msg := <-msgCh:
+			log.Printf("Reçoit %s en %s", msg.url, time.Since(msg.start))
+			if msg.err != nil {
+				return msg.err
+			}
+			nb++
+		case <-tick:
+			log.Printf("wait...")
+
 		}
 	}
 	return nil
